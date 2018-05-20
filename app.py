@@ -26,3 +26,7 @@ Crashes = Base.classes.crashes
 
 # Create our session (link) from Python to the DB
 session = Session(engine)
+
+# Testing session query functionality (record count in table matches df)
+county = session.query(Crashes.crash_id).count()
+print(county)

@@ -28,5 +28,5 @@ Crashes = Base.classes.crashes
 session = Session(engine)
 
 # Testing session query functionality (record count in table matches df)
-county = session.query(Crashes.crash_id).count()
-print(county)
+row_count = session.query(Crashes.crash_id).count()
+print(row_count)

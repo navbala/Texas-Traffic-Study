@@ -23,7 +23,7 @@ Base.prepare(engine, reflect=True)
 
 # Save references to each table
 Crashes = Base.classes.crashes
-Demographics = Base.classes.Demographics
+Demographics = Base.classes.demographics
 
 # Create our session (link) from Python to the DB
 session = Session(engine)

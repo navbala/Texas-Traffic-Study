@@ -33,6 +33,7 @@ session = Session(engine)
 
 @app.route("/")
 def index():
+
     """Return the homepage."""
     return render_template('index.html')
 
@@ -56,6 +57,7 @@ def allCrashes():
         crash_result["crash_severity"] = row.crash_severity
         crash_result["crash_time"] = row.crash_time
         crash_result["crash_total_injury_count"] = row.crash_total_injury_count
+        crash_result["crash_year"] = row.crash_year
         crash_result["day_of_week"] = row.day_of_week
         crash_result["latitude"] = row.latitude
         crash_result["longitude"] = row.longitude
@@ -114,6 +116,69 @@ def allCensus():
         allDemo.append(demo_row)
 
     return jsonify(allDemo)
+
+
+@app.route('/crashColumns')
+def crashColumns():
+
+    # Use Pandas to perform the sql query
+    stmt = session.query(Crashes).statement
+    df = pd.read_sql_query(stmt, session.bind)
+
+    # Return a list of the column names (sample names)
+    return jsonify(list(df.columns))
+
+
+@app.route('/censusColumns')
+def censusColumns():
+
+    # Use Pandas to perform the sql query
+    stmt = session.query(Demographics).statement
+    df = pd.read_sql_query(stmt, session.bind)
+
+    # Return a list of the column names (sample names)
+    return jsonify(list(df.columns))
+
+
+
+@app.route('/crashes2016')
+def crashes2016():
+    # Returning 2016 crashes only from the Crashes table
+
+    results = session.query(Crashes).all()
+
+    all_crashes = []
+
+    for row in results:
+
+        if row.crash_year == 2016:
+            crash_result = {}
+            crash_result["id"] = row.id
+            crash_result["crash_id"] = row.crash_id
+            crash_result["agency"] = row.agency
+            crash_result["city"] = row.city
+            crash_result["county"] = row.county
+            crash_result["crash_death_count"] = row.crash_death_count
+            crash_result["crash_severity"] = row.crash_severity
+            crash_result["crash_time"] = row.crash_time
+            crash_result["crash_total_injury_count"] = row.crash_total_injury_count
+            crash_result["crash_year"] = row.crash_year
+            crash_result["day_of_week"] = row.day_of_week
+            crash_result["latitude"] = row.latitude
+            crash_result["longitude"] = row.longitude
+            crash_result["manner_of_collision"] = row.manner_of_collision
+            crash_result["population_group"] = row.population_group
+            crash_result["road_class"] = row.road_class
+            crash_result["speed_limit"] = row.speed_limit
+            crash_result["weather_condition"] = row.weather_condition
+            crash_result["vehicle_color"] = row.vehicle_color
+            crash_result["person_age"] = row.person_age
+            crash_result["person_ethnicity"] = row.person_ethnicity
+            crash_result["person_gender"] = row.person_gender
+            crash_result["person_type"] = row.person_type
+            all_crashes.append(crash_result)
+
+    return jsonify(all_crashes)
 
 
 

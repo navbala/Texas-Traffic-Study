@@ -27,6 +27,10 @@ Base.prepare(engine, reflect=True)
 # Save references to each table
 Crashes = Base.classes.crashes
 Demographics = Base.classes.demographics
+Date_stops = Base.classes.date_stops
+Gender_stops = Base.classes.gender_stops
+Race_stops = Base.classes.race_stops
+County_stops = Base.classes.county_stops
 
 # Create our session (link) from Python to the DB
 session = Session(engine)
@@ -181,6 +185,96 @@ def crashes2016():
     return jsonify(all_crashes)
 
 
+@app.route("/stops_by_date")
+def stops_by_date():
+
+    results = session.query(Date_stops).all()
+
+    total_by_date = []
+
+    for row in results:
+        totals = {}
+        
+        totals["date"] = row.date
+        totals["stops_2010"] = row.stops_2010
+        totals["stops_2011"] = row.stops_2011
+        totals["stops_2012"] = row.stops_2012
+        totals["stops_2013"] = row.stops_2013
+        totals["stops_2014"] = row.stops_2014
+        totals["stops_2015"] = row.stops_2015
+        
+        total_by_date.append(totals)
+    
+    return jsonify(total_by_date)
+
+
+@app.route("/stops_by_gender")
+def stops_by_gender():
+
+    results = session.query(Gender_stops).all()
+
+    total_by_gender = []
+
+    for row in results:
+        totals = {}
+        
+        totals["gender"] = row.gender
+        totals["stops_2010"] = row.stops_2010
+        totals["stops_2011"] = row.stops_2011
+        totals["stops_2012"] = row.stops_2012
+        totals["stops_2013"] = row.stops_2013
+        totals["stops_2014"] = row.stops_2014
+        totals["stops_2015"] = row.stops_2015
+        
+        total_by_gender.append(totals)
+    
+    return jsonify(total_by_gender)
+
+
+@app.route("/stops_by_race")
+def stops_by_race():
+
+    results = session.query(Race_stops).all()
+
+    total_by_race = []
+
+    for row in results:
+        totals = {}
+        
+        totals["race"] = row.race
+        totals["stops_2010"] = row.stops_2010
+        totals["stops_2011"] = row.stops_2011
+        totals["stops_2012"] = row.stops_2012
+        totals["stops_2013"] = row.stops_2013
+        totals["stops_2014"] = row.stops_2014
+        totals["stops_2015"] = row.stops_2015
+        
+        total_by_race.append(totals)
+    
+    return jsonify(total_by_race)
+
+
+@app.route("/stops_by_county")
+def stops_by_county():
+
+    results = session.query(County_stops).all()
+
+    total_by_county = []
+
+    for row in results:
+        totals = {}
+        
+        totals["county"] = row.county
+        totals["stops_2010"] = row.stops_2010
+        totals["stops_2011"] = row.stops_2011
+        totals["stops_2012"] = row.stops_2012
+        totals["stops_2013"] = row.stops_2013
+        totals["stops_2014"] = row.stops_2014
+        totals["stops_2015"] = row.stops_2015
+        
+        total_by_county.append(totals)
+    
+    return jsonify(total_by_county)   
 
 if __name__ == "__main__":
     app.run(debug=True)

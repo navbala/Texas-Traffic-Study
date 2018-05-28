@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Total Stops by Day of Year</title>
+	
+	<!-- Add your js assets here (except your app.js file, which should be at the bottom of the body). -->
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<link rel="stylesheet" href="static/css/first_graph.css">
+</head>
+
+<body>
+
+	<div class="chart"></div>
+	
+	<script>
+		Plotly.d3.json("/stops_by_date", function(error, response) {
+			if (error) return console.warn(error);
+			var data = [response];
+			
+			var dates = [];
+			var total_10 = [];
+			var total_11 = [];
+			var total_12 = [];
+			var total_13 = [];
+			var total_14 = [];
+			var total_15 = [];
+
+			for (day in response) {
+				dates.append(day.date);
+				total_10.append(day.stops_2010);
+				total_11.append(day.stops_2011);
+				total_12.append(day.stops_2012);
+				total_13.append(day.stops_2013);
+				total_14.append(day.stops_2014);
+				total_15.append(day.stops_2015);
+			};
+
+			var trace10 = {
+				x: dates,
+				y: total_10
+			};
+			var trace11 = {
+				x: dates,
+				y: total_11
+			};
+			var trace12 = {
+				x: dates,
+				y: total_12
+			};
+			var trace13 = {
+				x: dates,
+				y: total_13
+			};
+			var trace14 = {
+				x: dates,
+				y: total_14
+			};
+			var trace15 = {
+				x: dates,
+				y: total_15
+			};
+
+			var data = [trace10,
+						trace11,
+						trace12,
+						trace13,
+						trace14,
+						trace15
+			];
+
+			console.log(data);
+
+			Plotly.newPlot("graph_visualization", data)
+		});
+	</script>
+
+</body>
+</html>

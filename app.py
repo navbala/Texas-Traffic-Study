@@ -276,5 +276,16 @@ def stops_by_county():
     
     return jsonify(total_by_county)   
 
+@app.route("/example")
+def example():
+    return render_template("flask_plotly_example.html")
+
+@app.route("/date_graph")
+def date_graph():
+    return render_template("date_graph.html")
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

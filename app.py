@@ -35,7 +35,7 @@ session = Session(engine)
 def index():
 
     """Return the homepage."""
-    return render_template('index.html')
+    return render_template('flask_plotly_example.html')
 
 
 @app.route('/allcrashes')

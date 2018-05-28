@@ -1,0 +1,105 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background-image: url("https://www.zeemaps.com/wp-content/uploads/2017/10/Screen-Shot-2017-10-16-at-09.39.20.png");
+  background-repeat: repeat;
+  padding-bottom: 80px;
+}
+
+.jumbotron {
+  background: none;
+}
+
+.header_text {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bolder;
+  text-align: center;
+  color: #DBDFAC;
+  background-color: #3B1F2B;
+  padding: 10px;
+}
+
+.header_text h1 {
+  font-weight: bold;
+}
+
+div {
+  background-color: #5F758E;
+}
+
+iframe {
+  height: 100%;
+  width: 100%;
+}
+
+.iframeContainer {
+  padding: 20px;
+  border: 1px solid #e3e3e3;
+  height: 700px;
+  width: 100%;
+}
+
+.header_text h1 {
+  font-size: 36pt;
+}
+
+.data_sources {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-align: center;
+  color: #DBDFAC;
+}
+
+.data_sources p {
+  font-size: 14pt;
+  background-color: #3B1F2B;
+  margin: 5px
+}
+
+.graph_title {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 28pt;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  color: #D0DB97;
+  background-color: #383961;
+}
+
+.insight_text {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 20pt;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  color: #D0DB97;
+  background-color: #3B1F2B;
+}
+
+.insight_text li {
+  text-align: left;
+  font-size: 16pt;
+  font-weight: normal;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%; /* Set the fixed height of the footer here */
+  height: 10px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  text-align: center;
+  background-color: #08605F;
+}
+
+#footer p {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #DBDFAC;
+}

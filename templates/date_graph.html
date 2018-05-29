@@ -6,9 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Total Stops by Day of Year</title>
 	
-	<!-- Add your js assets here (except your app.js file, which should be at the bottom of the body). -->
+	<!-- PLOTLY JS -->
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-	<link rel="stylesheet" href="static/css/first_graph.css">
+	<!-- OUR OWN CSS -->
+	<link rel="stylesheet" href="static/css/date_graph.css">
 </head>
 
 <body>
@@ -18,7 +19,6 @@
 	<script>
 		Plotly.d3.json("/stops_by_date", function(error, response) {
 			if (error) return console.warn(error);
-			var data = [response];
 			
 			var dates = [];
 			var total_10 = [];
@@ -72,8 +72,9 @@
 			];
 
 			console.log(data);
-
-			Plotly.newPlot("graph_visualization", data)
+			
+			var CHART = document.getElementById("chart");
+			Plotly.plot(CHART, data);
 		});
 	</script>
 

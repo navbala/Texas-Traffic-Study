@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Total Stops by Gender</title>
+	
+	<!-- PLOTLY & D3 JS -->
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="http://d3js.org/d3.v3.js"></script>
+	<!-- OUR OWN CSS -->
+	<link rel="stylesheet" href="static/css/date_graph.css">
+</head>
+
+<body>
+
+	<div id="chart"></div>
+	
+	<script>
+		var CHART = document.getElementById("chart");
+		var parseDate = d3.time.format("%m-%d").parse;
+		var data = []
+		var newdata= []
+			
+		Plotly.d3.json("/stops_by_date", function(error, response) {
+			if (error) console.warn(error);
+			
+			console.log(response);
+
+			response.forEach(function(d) {
+				d.date = parseDate(d.date);
+			});
+			
+			var dates = response.map(data => data.date);
+			var total_10 = response.map(data => data.stops_2010);
+			var total_11 = response.map(data => data.stops_2011);
+			var total_12 = response.map(data => data.stops_2012);
+			var total_13 = response.map(data => data.stops_2013);
+			var total_14 = response.map(data => data.stops_2014);
+			var total_15 = response.map(data => data.stops_2015);
+
+			console.log(dates);
+
+			var trace10 = {
+				x: dates,
+				y: total_10,
+				name: "2010"
+			};
+			var trace11 = {
+				x: dates,
+				y: total_11,
+				name: "2011"
+			};
+			var trace12 = {
+				x: dates,
+				y: total_12,
+				name: "2012"
+			};
+			var trace13 = {
+				x: dates,
+				y: total_13,
+				name: "2013"
+			};
+			var trace14 = {
+				x: dates,
+				y: total_14,
+				name: "2014"
+			};
+			var trace15 = {
+				x: dates,
+				y: total_15,
+				name: "2015"
+			};
+
+			var data = [trace10,
+						trace11,
+						trace12,
+						trace13,
+						trace14,
+						trace15
+			];
+			
+			var layout = {
+				xaxis: {
+					title: "Day of the Year"
+				},
+				yaxis: {
+					title: "Number of Speeding Stops Made",
+					autorange: true,
+					type: "linear"
+				},
+				autosize: false,
+				width: 1080,
+				height: 600, 
+			}
+			
+			Plotly.newPlot(CHART, data, layout);
+		});
+
+        // Get new data whenever the dropdown selection changes
+        function getData(year) {
+            
+			for (y in data) {
+				if (y.name == year) {
+					newdata = y.y
+				};
+			}
+
+            Plotly.restyle(CHART, 'y', newdata)
+        }
+
+	</script>
+
+	<select id="selDataset" onchange="getData(this.value)">
+		<option value="2010">2010</option>
+		<option value="2011">2011</option>
+		<option value="2012">2012</option>
+		<option value="2013">2013</option>
+		<option value="2014">2014</option>
+		<option value="2015">2015</option>
+	</select>
+
+</body>
+</html>

@@ -211,13 +211,14 @@ def stops_by_date():
 @app.route("/stops_by_gender")
 def stops_by_gender():
 
-    results = session.query(Gender_stops).all()
+    stop_results = session.query(Gender_stops).all()
+    census_results = sesson.query(Demographics).all()
 
     total_by_gender = []
 
     for row in results:
         totals = {}
-        
+
         totals["gender"] = row.gender
         totals["stops_2010"] = row.stops_2010
         totals["stops_2011"] = row.stops_2011
@@ -225,7 +226,7 @@ def stops_by_gender():
         totals["stops_2013"] = row.stops_2013
         totals["stops_2014"] = row.stops_2014
         totals["stops_2015"] = row.stops_2015
-        
+    
         total_by_gender.append(totals)
     
     return jsonify(total_by_gender)

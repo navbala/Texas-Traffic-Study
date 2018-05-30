@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Total Stops by Gender</title>
+	<title>Total Stops by Race</title>
 	
 	<!-- PLOTLY & D3 JS -->
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -21,28 +21,49 @@
 		var CHART = document.getElementById("chart");
 		var data = []
 			
-		Plotly.d3.json("/stops_by_gender", function(error, response) {
+		Plotly.d3.json("/stops_by_race", function(error, response) {
 			if (error) console.warn(error);
 			
 			console.log(response);
 			
             var years = response.map(data => data.year);
-            var male = response.map(data => data.male_stops / data.male_pop);
-            var female = response.map(data => data.female_stops / data.female_pop);
-            
-            var trace_m = {
+            var asian = response.map(data => data.asian_stops / data.asian_pop);
+            var black = response.map(data => data.black_stops / data.black_pop);
+            var hispanic = response.map(data => data.hispanic_stops / data.hispanic_pop);
+            var other = response.map(data => data.other_stops / data.other_pop);
+            var white = response.map(data => data.white_stops / data.white_pop);     
+
+            var trace_as = {
                 x: years,
-                y: male,
-                name: "Male"
+                y: asian,
+                name: "Asian"
             };
-            var trace_f = {
+            var trace_bl = {
                 x: years,
-                y: female,
-                name: "Female"
+                y: black,
+                name: "Black"
+            };
+            var trace_hi = {
+                x: years,
+                y: hispanic,
+                name: "Hispanic"
+            };
+            var trace_ot = {
+                x: years,
+                y: other,
+                name: "Other"
+            };
+            var trace_wh = {
+                x: years,
+                y: white,
+                name: "White"
             };
 
-			var data = [trace_m,
-						trace_f,
+			var data = [trace_as,
+						trace_bl,
+						trace_hi,
+						trace_ot,
+						trace_wh,
 			];
 			
 			var layout = {

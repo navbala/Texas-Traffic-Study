@@ -288,36 +288,38 @@ def stops_by_county():
 
     return jsonify(total_by_county)
 
-# @app.route("/crashes_by_gender")
-# def stops_by_gender():
-#
-#     crash_results = session.query(Crashes).all()
-#     census_results = session.query(Demographics).all()
-#
-#     total_crashes_by_gender = []
-#
-#     for row in crash_results:
-#         totals = {}
-#         male_crash_count = 0
-#         female_crash_count = 0
-#
-#         totals["year"] = row.crash_year
+@app.route("/crashes_by_gender")
+def crashes_by_gender():
 
-#         if row.person_gender == "Male":
-#           totals["male_crashes"] += 1
-#
-#         if row.person_gender == "Female":
-#           totals["female_crashes"] += 1
-#
-#         total_crashes_by_gender.append(totals)
-#
-#     # for year in total_crashes_by_gender:
-#     #     for row in census_results:
-#     #         if year["year"] == str(row.year):
-#     #             year["male_pop"] = row.male
-#     #             year["female_pop"] = row.female
-#
-#     return jsonify(total_by_gender)
+    crash_results = session.query(Crashes).all()
+    census_results = session.query(Demographics).all()
+
+    total_by_gender = []
+
+    for row in crash_results:
+        totals = {}
+        male_crash_count = 0
+        female_crash_count = 0
+
+        totals["year"] = row.crash_year
+
+        if row.person_gender == "Male":
+            male_crash_count += 1
+        totals["male_crashes"] = male_crash_count
+
+        if row.person_gender == "Female":
+          female_crash_count += 1
+        totals["female_crashes"] = female_crash_count
+
+        total_by_gender.append(totals)
+
+    # for year in total_by_gender:
+    #     for row in census_results:
+    #         if year["year"] == str(row.year):
+    #             year["male_pop"] = row.male
+    #             year["female_pop"] = row.female
+
+    return jsonify(total_by_gender)
 
 @app.route("/example")
 def example():

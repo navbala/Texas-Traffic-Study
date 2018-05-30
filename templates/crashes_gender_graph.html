@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Total Crashes by Gender</title>
+
+	<!-- PLOTLY & D3 JS -->
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="http://d3js.org/d3.v3.js"></script>
+	<!-- OUR OWN CSS -->
+	<link rel="stylesheet" href="static/css/date_graph.css">
+</head>
+
+<body>
+
+	<div id="chart"></div>
+
+	<script>
+		var CHART = document.getElementById("chart");
+		var data = []
+
+		Plotly.d3.json("/allcrashes", function(error, response) {
+			if (error) console.warn(error);
+
+			console.log(response);
+
+      var years = response.map(data => data.crash_year);
+      
+      //       var male = response.map(data => data.male_stops / data.male_pop);
+      //       var female = response.map(data => data.female_stops / data.female_pop);
+      //
+      //       var trace_m = {
+      //           x: years,
+      //           y: male,
+      //           name: "Male"
+      //       };
+      //       var trace_f = {
+      //           x: years,
+      //           y: female,
+      //           name: "Female"
+      //       };
+      //
+			// var data = [trace_m,
+			// 			trace_f,
+			// ];
+      //
+			// var layout = {
+			// 	xaxis: {
+			// 		title: "Year"
+			// 	},
+			// 	yaxis: {
+			// 		title: "Number of Speed-related Stops Made / Census Population",
+			// 		autorange: true,
+			// 		type: "linear"
+			// 	},
+			// 	autosize: false,
+			// 	width: 1080,
+			// 	height: 600,
+			// }
+      //
+			// Plotly.newPlot(CHART, data, layout);
+		});
+
+      //   // Get new data whenever the dropdown selection changes
+      //   function getData(year) {
+      //
+			// for (y in data) {
+			// 	if (y.name == year) {
+			// 		newdata = y.y
+			// 	};
+			// }
+      //
+      //       Plotly.restyle(CHART, 'y', newdata)
+      //   }
+
+	</script>
+
+	<!-- <select id="selDataset" onchange="getData(this.value)">
+		<option value="2010">2010</option>
+		<option value="2011">2011</option>
+		<option value="2012">2012</option>
+		<option value="2013">2013</option>
+		<option value="2014">2014</option>
+		<option value="2015">2015</option>
+	</select> -->
+
+</body>
+</html>

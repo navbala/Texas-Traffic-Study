@@ -194,7 +194,7 @@ def stops_by_date():
 
     for row in results:
         totals = {}
-        
+
         totals["date"] = row.date
         totals["stops_2010"] = row.stops_2010
         totals["stops_2011"] = row.stops_2011
@@ -202,9 +202,9 @@ def stops_by_date():
         totals["stops_2013"] = row.stops_2013
         totals["stops_2014"] = row.stops_2014
         totals["stops_2015"] = row.stops_2015
-        
+
         total_by_date.append(totals)
-    
+
     return jsonify(total_by_date)
 
 
@@ -225,9 +225,9 @@ def stops_by_race():
         totals["hispanic_stops"] = row.hispanic
         totals["other_stops"] = row.other
         totals["white_stops"] = row.white
-    
+
         total_by_race.append(totals)
-    
+
     for year in total_by_race:
         for row in census_results:
             if year["year"] == str(row.year):
@@ -236,7 +236,7 @@ def stops_by_race():
                 year["hispanic_pop"] = row.hispanic
                 year["other_pop"] = row.pacific_islander + row.other_race
                 year["white_pop"] = row.white
-    
+
     return jsonify(total_by_race)
 
 
@@ -254,15 +254,15 @@ def stops_by_gender():
         totals["year"] = row.year
         totals["male_stops"] = row.male
         totals["female_stops"] = row.female
-    
+
         total_by_gender.append(totals)
-    
+
     for year in total_by_gender:
         for row in census_results:
             if year["year"] == str(row.year):
                 year["male_pop"] = row.male
                 year["female_pop"] = row.female
-                
+
     return jsonify(total_by_gender)
 
 
@@ -275,7 +275,7 @@ def stops_by_county():
 
     for row in results:
         totals = {}
-        
+
         totals["county"] = row.county
         totals["stops_2010"] = row.stops_2010
         totals["stops_2011"] = row.stops_2011
@@ -283,10 +283,41 @@ def stops_by_county():
         totals["stops_2013"] = row.stops_2013
         totals["stops_2014"] = row.stops_2014
         totals["stops_2015"] = row.stops_2015
-        
+
         total_by_county.append(totals)
-    
-    return jsonify(total_by_county)   
+
+    return jsonify(total_by_county)
+
+# @app.route("/crashes_by_gender")
+# def stops_by_gender():
+#
+#     crash_results = session.query(Crashes).all()
+#     census_results = session.query(Demographics).all()
+#
+#     total_crashes_by_gender = []
+#
+#     for row in crash_results:
+#         totals = {}
+#         male_crash_count = 0
+#         female_crash_count = 0
+#
+#         totals["year"] = row.crash_year
+
+#         if row.person_gender == "Male":
+#           totals["male_crashes"] += 1
+#
+#         if row.person_gender == "Female":
+#           totals["female_crashes"] += 1
+#
+#         total_crashes_by_gender.append(totals)
+#
+#     # for year in total_crashes_by_gender:
+#     #     for row in census_results:
+#     #         if year["year"] == str(row.year):
+#     #             year["male_pop"] = row.male
+#     #             year["female_pop"] = row.female
+#
+#     return jsonify(total_by_gender)
 
 @app.route("/example")
 def example():
@@ -303,6 +334,11 @@ def race_graph():
 @app.route("/gender_graph")
 def gender_graph():
     return render_template("gender_graph.html")
+
+@app.route("/crashes_gender_graph")
+def crashes_gender_graph():
+    return render_template("crashes_gender_graph.html")
+
 
 
 

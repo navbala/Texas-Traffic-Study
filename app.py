@@ -295,51 +295,40 @@ def crashes_by_gender():
     census_results = session.query(Demographics).all()
 
     total_by_gender = []
-    male_crashes = []
-    female_crashes = []
     # test_count = session.query(Crashes).first()
 
     male_crash_count = 0
     female_crash_count = 0
 
+    crash_count_10 = 0
+    crash_count_11 = 0
+    crash_count_12 = 0
+    crash_count_13 = 0
+    crash_count_14 = 0
+    crash_count_15 = 0
+    crash_count_16 = 0
+
     for row in crash_results:
-        if row.person_gender == "Male":
-            male_crashes["year"] = row.crash_year
+        if row.crash_year == 2010:
+            crash_count_10 += 1
+        elif row.crash_year == 2011:
+            crash_count_11 += 1
+        elif row.crash_year == 2012:
+            crash_count_12 += 1
+        elif row.crash_year == 2013:
+            crash_count_13 += 1
+        elif row.crash_year == 2014:
+            crash_count_14 += 1
+        elif row.crash_year == 2015:
+            crash_count_15 += 1
+        elif row.crash_year == 2016:
+            crash_count_16 += 1
+
+    total_by_gender.append({2010:crash_count_10}, {2011:crash_count_10},{2012:crash_count_10}
+    {2013:crash_count_10},{2014:crash_count_10},{2015:crash_count_10},{2016:crash_count_10})
 
 
-        if row.person_gender == "Female":
-            female_crash_count += 1
 
-
-    # for row in crash_results:
-    #     if row.crash_year not in total_by_gender:
-    #
-    #         totals = {}
-    #
-    #         # if row.crash
-    #         totals["year"] = row.crash_year
-    #
-    #         if row.person_gender == "Male":
-    #             totals["male_crashes"] = 1
-    #
-    #         if row.person_gender == "Female":
-    #           female_crash_count = 1
-    #           totals["female_crashes"] = female_crash_count
-    #
-    #         total_by_gender.append(totals)
-    #
-    #     else:
-    #         totals["year"] = row.crash_year
-    #
-    #         if row.person_gender == "Male":
-    #             male_crash_count += 1
-    #         totals["male_crashes"] = male_crash_count
-    #
-    #         if row.person_gender == "Female":
-    #           female_crash_count += 1
-    #         totals["female_crashes"] = female_crash_count
-    #
-    #         total_by_gender.append(totals)
 
 
     # for year in total_by_gender:

@@ -6,7 +6,7 @@ import numpy as np
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify, render_template
 
@@ -295,23 +295,52 @@ def crashes_by_gender():
     census_results = session.query(Demographics).all()
 
     total_by_gender = []
+    male_crashes = []
+    female_crashes = []
+    # test_count = session.query(Crashes).first()
+
+    male_crash_count = 0
+    female_crash_count = 0
 
     for row in crash_results:
-        totals = {}
-        male_crash_count = 0
-        female_crash_count = 0
-
-        totals["year"] = row.crash_year
-
         if row.person_gender == "Male":
-            male_crash_count += 1
-        totals["male_crashes"] = male_crash_count
+            male_crashes["year"] = row.crash_year
+
 
         if row.person_gender == "Female":
-          female_crash_count += 1
-        totals["female_crashes"] = female_crash_count
+            female_crash_count += 1
 
-        total_by_gender.append(totals)
+
+    # for row in crash_results:
+    #     if row.crash_year not in total_by_gender:
+    #
+    #         totals = {}
+    #
+    #         # if row.crash
+    #         totals["year"] = row.crash_year
+    #
+    #         if row.person_gender == "Male":
+    #             totals["male_crashes"] = 1
+    #
+    #         if row.person_gender == "Female":
+    #           female_crash_count = 1
+    #           totals["female_crashes"] = female_crash_count
+    #
+    #         total_by_gender.append(totals)
+    #
+    #     else:
+    #         totals["year"] = row.crash_year
+    #
+    #         if row.person_gender == "Male":
+    #             male_crash_count += 1
+    #         totals["male_crashes"] = male_crash_count
+    #
+    #         if row.person_gender == "Female":
+    #           female_crash_count += 1
+    #         totals["female_crashes"] = female_crash_count
+    #
+    #         total_by_gender.append(totals)
+
 
     # for year in total_by_gender:
     #     for row in census_results:
@@ -320,6 +349,7 @@ def crashes_by_gender():
     #             year["female_pop"] = row.female
 
     return jsonify(total_by_gender)
+    # print(test_count)
 
 @app.route("/example")
 def example():

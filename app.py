@@ -401,7 +401,9 @@ def gender_graph():
 def crashes_gender_graph():
     return render_template("crashes_gender_graph.html")
 
-
+@app.route("/crashes_race_graph")
+def crashes_race_graph():
+    return render_template("crashes_race_graph.html")
 
 
 

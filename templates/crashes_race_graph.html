@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Total Crashes by Race</title>
+
+	<!-- PLOTLY & D3 JS -->
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="http://d3js.org/d3.v3.js"></script>
+	<!-- OUR OWN CSS -->
+	<link rel="stylesheet" href="static/css/date_graph.css">
+</head>
+
+<body>
+
+	<div id="chart"></div>
+
+	<script>
+		var CHART = document.getElementById("chart");
+		var data = []
+
+		Plotly.d3.json("/crashes_by_race", function(error, response) {
+			if (error) console.warn(error);
+
+			console.log(response);
+
+            var years = response.map(data => data.year);
+            var native_american = response.map(data => data.native_american_crashes / data.native_american_pop);
+            var asian = response.map(data => data.asian_crashes / data.asian_pop);
+            var black = response.map(data => data.black_crashes / data.black_pop);
+            var hispanic = response.map(data => data.hispanic_crashes / data.hispanic_pop);
+            var other = response.map(data => data.other_crashes / data.other_pop);
+            var white = response.map(data => data.white_crashes / data.white_pop);
+
+            var trace_na = {
+                x: years,
+                y: native_american,
+                name: "Native American"
+            };
+            var trace_as = {
+                x: years,
+                y: asian,
+                name: "Asian"
+            };
+            var trace_bl = {
+                x: years,
+                y: black,
+                name: "Black"
+            };
+            var trace_hi = {
+                x: years,
+                y: hispanic,
+                name: "Hispanic"
+            };
+            var trace_ot = {
+                x: years,
+                y: other,
+                name: "Other"
+            };
+            var trace_wh = {
+                x: years,
+                y: white,
+                name: "White"
+            };
+
+			var data = [trace_na,
+            trace_as,
+						trace_bl,
+						trace_hi,
+						trace_ot,
+						trace_wh,
+			];
+
+			var layout = {
+				xaxis: {
+					title: "Year"
+				},
+				yaxis: {
+					title: "Number of Speed-related Crashes Made / Census Population",
+					autorange: true,
+					type: "linear"
+				},
+				autosize: false,
+				width: 1080,
+				height: 600,
+			}
+
+			Plotly.newPlot(CHART, data, layout);
+
+		});
+
+      //   // Get new data whenever the dropdown selection changes
+      //   function getData(year) {
+      //
+			// for (y in data) {
+			// 	if (y.name == year) {
+			// 		newdata = y.y
+			// 	};
+			// }
+      //
+      //       Plotly.restyle(CHART, 'y', newdata)
+      //   }
+
+	</script>
+
+	<!-- <select id="selDataset" onchange="getData(this.value)">
+		<option value="2010">2010</option>
+		<option value="2011">2011</option>
+		<option value="2012">2012</option>
+		<option value="2013">2013</option>
+		<option value="2014">2014</option>
+		<option value="2015">2015</option>
+	</select> -->
+
+</body>
+</html>

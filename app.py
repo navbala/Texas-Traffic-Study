@@ -291,6 +291,43 @@ def stops_by_county():
 
     return jsonify(total_by_county)
 
+@app.route("/crashes_by_race")
+def crashes_by_race():
+
+    crash_results = session.query(Race_crashes).all()
+    census_results = session.query(Demographics).all()
+
+    total_by_race = []
+
+    for row in crash_results:
+        totals = {}
+
+        totals["year"] = row.year
+        totals["native_american_crashes"] = row.native_american
+        totals["asian_crashes"] = row.asian
+        totals["black_crashes"] = row.black
+        totals["hispanic_crashes"] = row.hispanic
+        totals["other_crashes"] = row.other
+        totals["white_crashes"] = row.white
+
+        total_by_race.append(totals)
+
+    for year in total_by_race:
+        for row in census_results:
+            if year["year"] == str(row.year):
+                year["native_american_pop"] = row.native_american
+                year["asian_pop"] = row.asian
+                year["black_pop"] = row.black
+                year["hispanic_pop"] = row.hispanic
+                year["other_pop"] = row.pacific_islander + row.other_race
+                year["white_pop"] = row.white
+
+    # Since there's no census population data for 2017 and 2018, remove those dicts from the list
+    total_by_race = [x for x in total_by_race if not (("2017" == x.get('year')) or ("2018" == x.get("year")))]
+
+
+    return jsonify(total_by_race)
+
 @app.route("/crashes_by_gender")
 def crashes_by_gender():
 
@@ -314,8 +351,35 @@ def crashes_by_gender():
                 year["male_pop"] = row.male
                 year["female_pop"] = row.female
 
+    # Since there's no census population data for 2017 and 2018, remove those dicts from the list
+    total_by_gender = [x for x in total_by_gender if not (("2017" == x.get('year')) or ("2018" == x.get("year")))]
+
     return jsonify(total_by_gender)
 
+@app.route("/crashes_by_county")
+def crashes_by_county():
+
+    results = session.query(County_crashes).all()
+
+    total_by_county = []
+
+    for row in results:
+        totals = {}
+
+        totals["county"] = row.county
+        totals["crashes_2010"] = row.crashes_2010
+        totals["crashes_2011"] = row.crashes_2011
+        totals["crashes_2012"] = row.crashes_2012
+        totals["crashes_2013"] = row.crashes_2013
+        totals["crashes_2014"] = row.crashes_2014
+        totals["crashes_2015"] = row.crashes_2015
+        totals["crashes_2016"] = row.crashes_2016
+        totals["crashes_2017"] = row.crashes_2017
+        totals["crashes_2018"] = row.crashes_2018
+
+        total_by_county.append(totals)
+
+    return jsonify(total_by_county)
 
 @app.route("/example")
 def example():

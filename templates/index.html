@@ -5,22 +5,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Speeding in Texas</title>
-	
+
 	<!-- BOOTSTRAP JS & CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	
+
 	<!-- D3 & TOOLTIP JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-	
+
 	<!-- OUR OWN CSS -->
 	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" >
-	
+
 </head>
 
 <body>
-	
+
 	<!-- Jumbotron Header -->
 	<div class="jumbotron">
 		<div class="container header_text">
@@ -43,12 +43,12 @@
 			</div>
 			<div class="col-md-4">
 				<p>Stanford Open Policing Project</p>
-			</div>	
+			</div>
 		</div>
 	</div>
 
-	<!-- Graph with Title and Insight 
-		To add new graph, copy/paste, update iframe source 
+	<!-- Graph with Title and Insight
+		To add new graph, copy/paste, update iframe source
 		to your Graph's html file and update graph_title text) -->
 	<div class="container graph">
 		<div class="row">
@@ -59,10 +59,10 @@
 			<div class="col-md-12">
 				<div class="iframeContainer">
 					<iframe class="embed-responsive-item" src="/example" allowfullscreen></iframe>
-				</div>			
+				</div>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-md-12 insight_text">
 				<ul>Insight Gained
@@ -78,15 +78,15 @@
 			<div class="row">
 				<h1 class="graph_title">Traffic Stops by Day of Year</h1>
 			</div>
-	
+
 			<div class="row graph_visualization">
 				<div class="col-md-12">
 					<div class="iframeContainer">
 						<iframe class="embed-responsive-item" src="/date_graph" allowfullscreen></iframe>
-					</div>			
+					</div>
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<div class="col-md-12 insight_text">
 					<ul>Insight Gained
@@ -102,15 +102,15 @@
 				<div class="row">
 					<h1 class="graph_title">Traffic Stops by Race of Driver</h1>
 				</div>
-		
+
 				<div class="row graph_visualization">
 					<div class="col-md-12">
 						<div class="iframeContainer">
 							<iframe class="embed-responsive-item" src="/race_graph" allowfullscreen></iframe>
-						</div>			
+						</div>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-md-12 insight_text">
 						<ul>Insight Gained
@@ -126,15 +126,15 @@
 					<div class="row">
 						<h1 class="graph_title">Traffic Stops by Gender of Driver</h1>
 					</div>
-			
+
 					<div class="row graph_visualization">
 						<div class="col-md-12">
 							<div class="iframeContainer">
 								<iframe class="embed-responsive-item" src="/gender_graph" allowfullscreen></iframe>
-							</div>			
+							</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-12 insight_text">
 							<ul>Insight Gained
@@ -145,6 +145,30 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="container graph">
+						<div class="row">
+							<h1 class="graph_title">Traffic Crashes by Gender of Driver</h1>
+						</div>
+
+						<div class="row graph_visualization">
+							<div class="col-md-12">
+								<div class="iframeContainer">
+									<iframe class="embed-responsive-item" src="/crashes_gender_graph" allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12 insight_text">
+								<ul>Insight Gained
+									<li>Interesting Point</li>
+									<li>Another Point</li>
+									<li>So Many Points</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
 	<!-- Footer -->
 	<div id="footer">

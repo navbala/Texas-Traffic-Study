@@ -31,6 +31,9 @@ Date_stops = Base.classes.date_stops
 Gender_stops = Base.classes.gender_stops
 Race_stops = Base.classes.race_stops
 County_stops = Base.classes.county_stops
+Gender_crashes = Base.classes.gender_crashes
+Race_crashes = Base.classes.race_crashes
+County_crashes = Base.classes.county_crashes
 
 # Create our session (link) from Python to the DB
 session = Session(engine)
@@ -291,54 +294,28 @@ def stops_by_county():
 @app.route("/crashes_by_gender")
 def crashes_by_gender():
 
-    crash_results = session.query(Crashes).all()
+    crash_results = session.query(Gender_crashes).all()
     census_results = session.query(Demographics).all()
 
     total_by_gender = []
-    # test_count = session.query(Crashes).first()
-
-    male_crash_count = 0
-    female_crash_count = 0
-
-    crash_count_10 = 0
-    crash_count_11 = 0
-    crash_count_12 = 0
-    crash_count_13 = 0
-    crash_count_14 = 0
-    crash_count_15 = 0
-    crash_count_16 = 0
 
     for row in crash_results:
-        if row.crash_year == 2010:
-            crash_count_10 += 1
-        elif row.crash_year == 2011:
-            crash_count_11 += 1
-        elif row.crash_year == 2012:
-            crash_count_12 += 1
-        elif row.crash_year == 2013:
-            crash_count_13 += 1
-        elif row.crash_year == 2014:
-            crash_count_14 += 1
-        elif row.crash_year == 2015:
-            crash_count_15 += 1
-        elif row.crash_year == 2016:
-            crash_count_16 += 1
+        totals = {}
 
-    total_by_gender.append({2010:crash_count_10}, {2011:crash_count_10},{2012:crash_count_10}
-    {2013:crash_count_10},{2014:crash_count_10},{2015:crash_count_10},{2016:crash_count_10})
+        totals["year"] = row.year
+        totals["male_crashes"] = row.male
+        totals["female_crashes"] = row.female
 
+        total_by_gender.append(totals)
 
-
-
-
-    # for year in total_by_gender:
-    #     for row in census_results:
-    #         if year["year"] == str(row.year):
-    #             year["male_pop"] = row.male
-    #             year["female_pop"] = row.female
+    for year in total_by_gender:
+        for row in census_results:
+            if year["year"] == str(row.year):
+                year["male_pop"] = row.male
+                year["female_pop"] = row.female
 
     return jsonify(total_by_gender)
-    # print(test_count)
+
 
 @app.route("/example")
 def example():

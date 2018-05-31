@@ -381,6 +381,7 @@ def crashes_by_county():
 
     return jsonify(total_by_county)
 
+
 @app.route("/example")
 def example():
     return render_template("flask_plotly_example.html")
@@ -407,7 +408,7 @@ def crashes_race_graph():
 
 @app.route("/crashes_county")
 def crashes_county_graph():
-    return render_template("county_vis.html")
+    return render_template("county_vis2.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

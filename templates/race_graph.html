@@ -36,27 +36,52 @@
             var trace_as = {
                 x: years,
                 y: asian,
-                name: "Asian"
+                name: "Asian",
+				line: {
+					color: "#C84630",
+					width: 5,
+					shape: "spline"
+				}
             };
             var trace_bl = {
                 x: years,
                 y: black,
-                name: "Black"
+                name: "Black",
+				line: {
+					color: "#08605F",
+					width: 5,
+					shape: "spline"
+				}
             };
             var trace_hi = {
                 x: years,
                 y: hispanic,
-                name: "Hispanic"
+                name: "Hispanic",
+				line: {
+					color: "#3B1F2B",
+					width: 5,
+					shape: "spline"
+				}
             };
             var trace_ot = {
                 x: years,
                 y: other,
-                name: "Other"
+                name: "Other",
+				line: {
+					color: "#5F758E",
+					width: 5,
+					shape: "spline"
+				}
             };
             var trace_wh = {
                 x: years,
                 y: white,
-                name: "White"
+                name: "White",
+				line: {
+					color: "#B8B42D",
+					width: 5,
+					shape: "spline"
+				}
             };
 
 			var data = [trace_as,
@@ -83,28 +108,7 @@
 			Plotly.newPlot(CHART, data, layout);
 		});
 
-        // Get new data whenever the dropdown selection changes
-        function getData(year) {
-            
-			for (y in data) {
-				if (y.name == year) {
-					newdata = y.y
-				};
-			}
-
-            Plotly.restyle(CHART, 'y', newdata)
-        }
-
 	</script>
-
-	<select id="selDataset" onchange="getData(this.value)">
-		<option value="2010">2010</option>
-		<option value="2011">2011</option>
-		<option value="2012">2012</option>
-		<option value="2013">2013</option>
-		<option value="2014">2014</option>
-		<option value="2015">2015</option>
-	</select>
 
 </body>
 </html>

@@ -405,7 +405,9 @@ def crashes_gender_graph():
 def crashes_race_graph():
     return render_template("crashes_race_graph.html")
 
-
+@app.route("/crashes_county")
+def crashes_county_graph():
+    return render_template("county_vis.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

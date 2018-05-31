@@ -41,6 +41,8 @@
         .attr("width", svgWidth)
         .attr("height", svgHeight);
 
+
+
         var axisLabels = svg.append("g")
             .classed("axis_labels", true)
 
@@ -61,6 +63,8 @@
             .attr("x", 105)
             .attr("y", 525)
             .text("JAN-------FEB-------MAR-------APR--------MAY-------JUN--------JUL--------AUG--------SEP--------OCT-------NOV-------DEC");
+
+
 
         var buttonGroup = svg.append("g")
             .classed("btn_grp", true)
@@ -172,6 +176,8 @@
             .attr("onclick", "toggleLine('line2015')")
             .attr("onmouseover", "strongLine('line2015')")
             .attr("onmouseout", "weakLine('line2015')");
+
+
 
         var chartGroup = svg.append("g")
             .attr("transform", `translate(${margin.left}, ${margin.top})`);

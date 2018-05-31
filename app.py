@@ -408,7 +408,11 @@ def crashes_race_graph():
 
 @app.route("/crashes_county")
 def crashes_county_graph():
-    return render_template("county_vis2.html")
+    return render_template("county_vis.html")
+
+@app.route("/bp_vis")
+def bp_vis():
+    return render_template("bp_vis_ref.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

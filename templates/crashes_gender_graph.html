@@ -34,13 +34,23 @@
       var trace_m = {
                 x: years,
                 y: male,
-                name: "Male"
+                name: "Male",
+				line: {
+					color: "#B8B42D",
+					width: 5,
+					shape: "spline"
+				}
             };
 
       var trace_f = {
                 x: years,
                 y: female,
-                name: "Female"
+                name: "Female",
+				line: {
+					color: "#5F758E",
+					width: 5,
+					shape: "spline"
+				}
             };
 
 			var data = [trace_m,

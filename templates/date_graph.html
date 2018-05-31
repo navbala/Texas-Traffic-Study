@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="static/css/date_graph.css">
 </head>
 
-<body>
+<body onload="plotGraph()">
 
 	<div id="chart"></div>
 	
@@ -22,11 +22,11 @@
 		var parseDate = d3.time.format("%m-%d").parse;
 		var data = []
 		var newdata= []
-			
+
 		Plotly.d3.json("/stops_by_date", function(error, response) {
 			if (error) console.warn(error);
 			
-			console.log(response);
+			// console.log(response);
 
 			response.forEach(function(d) {
 				d.date = parseDate(d.date);
@@ -40,7 +40,7 @@
 			var total_14 = response.map(data => data.stops_2014);
 			var total_15 = response.map(data => data.stops_2015);
 
-			console.log(dates);
+			// console.log(dates);
 
 			var trace10 = {
 				x: dates,
@@ -73,12 +73,12 @@
 				name: "2015"
 			};
 
-			var data = [trace10,
-						trace11,
-						trace12,
-						trace13,
-						trace14,
-						trace15
+			data = [trace10,
+					trace11,
+					trace12,
+					trace13,
+					trace14,
+					trace15
 			];
 			
 			var layout = {
@@ -98,28 +98,7 @@
 			Plotly.newPlot(CHART, data, layout);
 		});
 
-        // Get new data whenever the dropdown selection changes
-        function getData(year) {
-            
-			for (y in data) {
-				if (y.name == year) {
-					newdata = y.y
-				};
-			}
-
-            Plotly.restyle(CHART, 'y', newdata)
-        }
-
 	</script>
-
-	<select id="selDataset" onchange="getData(this.value)">
-		<option value="2010">2010</option>
-		<option value="2011">2011</option>
-		<option value="2012">2012</option>
-		<option value="2013">2013</option>
-		<option value="2014">2014</option>
-		<option value="2015">2015</option>
-	</select>
 
 </body>
 </html>

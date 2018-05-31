@@ -388,7 +388,7 @@ def example():
 
 @app.route("/date_graph")
 def date_graph():
-    return render_template("date_graph.html")
+    return render_template("date_graph_svg.html")
 
 @app.route("/race_graph")
 def race_graph():

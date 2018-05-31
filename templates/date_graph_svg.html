@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Total Stops by Day of Year</title>
+	
+	<!-- PLOTLY & D3 & JQUERY JS -->
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"> </script>
+    <!-- OUR OWN CSS -->
+	<link rel="stylesheet" href="static/css/date_graph.css">
+</head>
+
+<body>
+
+	<script>
+		
+		var svgWidth = 1050;
+        var svgHeight = 600;
+
+        var margin = {
+        top: 20,
+        right: 40,
+        bottom: 60,
+        left: 80
+        };
+
+        var width = svgWidth - margin.left - margin.right;
+        var height = svgHeight - margin.top - margin.bottom;
+
+        // Step 2: Create an SVG wrapper,
+        // append an SVG group that will hold our chart,
+        // and shift the latter by left and top margins.
+        // =================================
+        var svg = d3
+        .select("body")
+        .append("svg")
+        .attr("width", svgWidth)
+        .attr("height", svgHeight);
+
+        var axisLabels = svg.append("g")
+            .classed("axis_labels", true)
+
+        axisLabels.append("text")
+            .attr("x", 25)
+            .attr("y", 450)
+            .attr("font-weight", "bold")
+            .attr("transform", "rotate(270,25,450)")
+            .text("Number of Speed-related Stops made in Texas");
+
+        axisLabels.append("text")
+            .attr("x", 450)
+            .attr("y", 585)
+            .attr("font-weight", "bold")
+            .text("Day of the Year");
+        
+        axisLabels.append("text")
+            .attr("x", 105)
+            .attr("y", 525)
+            .text("JAN-------FEB-------MAR-------APR--------MAY-------JUN--------JUL--------AUG--------SEP--------OCT-------NOV-------DEC");
+
+        var buttonGroup = svg.append("g")
+            .classed("btn_grp", true)
+
+        buttonGroup.append("rect")
+            .attr("x", 100)
+            .attr("y", 20)
+            .attr("width", 100)
+            .attr("height", 20)
+            .attr("fill", "#1B998B")
+            .classed("button btn_2010", true)
+            .attr("onclick", "toggleLine('line2010')")
+            .attr("onmouseover", "strongLine('line2010')")
+            .attr("onmouseout", "weakLine('line2010')");
+        buttonGroup.append("text")
+            .attr("x", 133)
+            .attr("y", 35)
+            .text("2010")
+            .attr("onclick", "toggleLine('line2010')")
+            .attr("onmouseover", "strongLine('line2010')")
+            .attr("onmouseout", "weakLine('line2010')");
+        
+        buttonGroup.append("rect")
+            .attr("x", 100)
+            .attr("y", 55)
+            .attr("width", 100)
+            .attr("height", 20)
+            .attr("fill", "#C84630")
+            .classed("button btn_2011", true)
+            .attr("onclick", "toggleLine('line2011')")
+            .attr("onmouseover", "strongLine('line2011')")
+            .attr("onmouseout", "weakLine('line2011')");
+        buttonGroup.append("text")
+            .attr("x", 133)
+            .attr("y", 70)
+            .text("2011")
+            .attr("onclick", "toggleLine('line2011')")
+            .attr("onmouseover", "strongLine('line2011')")
+            .attr("onmouseout", "weakLine('line2011')");
+        
+        buttonGroup.append("rect")
+            .attr("x", 100)
+            .attr("y", 90)
+            .attr("width", 100)
+            .attr("height", 20)
+            .attr("fill", "#99621E")
+            .classed("button btn_2012", true)
+            .attr("onclick", "toggleLine('line2012')")
+            .attr("onmouseover", "strongLine('line2012')")
+            .attr("onmouseout", "weakLine('line2012')");
+        buttonGroup.append("text")
+            .attr("x", 133)
+            .attr("y", 104)
+            .text("2012")
+            .attr("onclick", "toggleLine('.line2012')")
+            .attr("onmouseover", "strongLine('line2012')")
+            .attr("onmouseout", "weakLine('line2012')");
+        
+        buttonGroup.append("rect")
+            .attr("x", 100)
+            .attr("y", 125)
+            .attr("width", 100)
+            .attr("height", 20)
+            .attr("fill", "#5F758E")
+            .classed("button btn_2013", true)
+            .attr("onclick", "toggleLine('line2013')")
+            .attr("onmouseover", "strongLine('line2013')")
+            .attr("onmouseout", "weakLine('line2013')");
+        buttonGroup.append("text")
+            .attr("x", 133)
+            .attr("y", 139)
+            .text("2013")
+            .attr("onclick", "toggleLine('line2013')")
+            .attr("onmouseover", "strongLine('line2013')")
+            .attr("onmouseout", "weakLine('line2013')");
+        
+        buttonGroup.append("rect")
+            .attr("x", 100)
+            .attr("y", 160)
+            .attr("width", 100)
+            .attr("height", 20)
+            .attr("fill", "#E2294F")
+            .classed("button btn_2014", true)
+            .attr("onclick", "toggleLine('line2014')")
+            .attr("onmouseover", "strongLine('line2014')")
+            .attr("onmouseout", "weakLine('line2014')");
+        buttonGroup.append("text")
+            .attr("x", 133)
+            .attr("y", 174)
+            .text("2014")
+            .attr("onclick", "toggleLine('line2014')")
+            .attr("onmouseover", "strongLine('line2014')")
+            .attr("onmouseout", "weakLine('line2014')");
+        
+        buttonGroup.append("rect")
+            .attr("x", 100)
+            .attr("y", 195)
+            .attr("width", 100)
+            .attr("height", 20)
+            .attr("fill", "#3E78B2")
+            .classed("button btn_2015", true)
+            .attr("onclick", "toggleLine('line2015')")
+            .attr("onmouseover", "strongLine('line2015')")
+            .attr("onmouseout", "weakLine('line2015')");
+        buttonGroup.append("text")
+            .attr("x", 133)
+            .attr("y", 209)
+            .text("2015")
+            .attr("onclick", "toggleLine('line2015')")
+            .attr("onmouseover", "strongLine('line2015')")
+            .attr("onmouseout", "weakLine('line2015')");
+
+        var chartGroup = svg.append("g")
+            .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        // Step 3:
+        // Import data 
+        // =================================
+        d3.json("/stops_by_date", function (error, response) {
+            if (error) throw error;
+
+            // Step 4: Parse the data
+            // Format the data and convert to numerical and date values
+            // =================================
+            // Create a function to parse date and time
+            var parseTime = d3.timeParse("%m-%d");
+
+            // Format the data
+            response.forEach(function (data) {
+                data.date = parseTime(data.date);
+                data.stops_2010 = +data.stops_2010;
+                data.stops_2011 = +data.stops_2011;
+                data.stops_2012 = +data.stops_2012;
+                data.stops_2013 = +data.stops_2013;
+                data.stops_2014 = +data.stops_2014;
+                data.stops_2015 = +data.stops_2015;
+            });
+
+            // Step 5: Create the scales for the chart
+            // =================================
+            var xTimeScale = d3.scaleTime()
+                .domain(d3.extent(response, d => d.date))
+                .range([0, width]);
+
+            var yLinearScale = d3.scaleLinear().range([height, 0]);
+
+            // Step 6: Set up the y-axis domain
+            // ==============================================
+            // Determine the max y value
+            var maximums = []
+            maximums.push(d3.max(response, d => d.stops_2010));
+            maximums.push(d3.max(response, d => d.stops_2011));
+            maximums.push(d3.max(response, d => d.stops_2012));
+            maximums.push(d3.max(response, d => d.stops_2013));
+            maximums.push(d3.max(response, d => d.stops_2014));
+            maximums.push(d3.max(response, d => d.stops_2015));
+            
+            var yMax = d3.max(maximums);
+
+            // Use the yMax value to set the yLinearScale domain
+            yLinearScale.domain([0, yMax]);
+
+            // Step 7: Create the axes
+            // =================================
+            var bottomAxis = d3.axisBottom(xTimeScale).tickFormat(d3.timeFormat("%m-%d"));
+            var leftAxis = d3.axisLeft(yLinearScale);
+
+            // Step 8: Append the axes to the chartGroup
+            // ==============================================
+            // Add x-axis
+            chartGroup.append("g")
+                .attr("transform", `translate(0, ${height})`)
+                .call(bottomAxis);
+
+            // Add y-axis
+            chartGroup.append("g").call(leftAxis);
+
+            // Step 9: Set up line generators and append SVG paths
+            // ==============================================
+
+            // Line generators
+            var line2010 = d3.line()
+                .x(d => xTimeScale(d.date))
+                .y(d => yLinearScale(d.stops_2010));
+            var line2011 = d3.line()
+                .x(d => xTimeScale(d.date))
+                .y(d => yLinearScale(d.stops_2011));
+            var line2012 = d3.line()
+                .x(d => xTimeScale(d.date))
+                .y(d => yLinearScale(d.stops_2012));
+            var line2013 = d3.line()
+                .x(d => xTimeScale(d.date))
+                .y(d => yLinearScale(d.stops_2013));            
+            var line2014 = d3.line()
+                .x(d => xTimeScale(d.date))
+                .y(d => yLinearScale(d.stops_2014));
+            var line2015 = d3.line()
+                .x(d => xTimeScale(d.date))
+                .y(d => yLinearScale(d.stops_2015));
+
+
+            // Append paths for lines
+            chartGroup
+                .data([response])
+                .append("path")
+                .attr("d", line2010)
+                .attr("stroke", "#1B998B")
+                .classed("line line2010 hide-line", true)
+                .attr("onmouseover", "strongLine('line2010')")
+                .attr("onmouseout", "weakLine('line2010')");
+            chartGroup
+                .data([response])
+                .append("path")
+                .attr("d", line2011)
+                .attr("stroke", "#C84630")
+                .classed("line line2011 hide-line", true)
+                .attr("onmouseover", "strongLine('line2011')")
+                .attr("onmouseout", "weakLine('line2011')");
+            chartGroup
+                .data([response])
+                .append("path")
+                .attr("d", line2012)
+                .attr("stroke", "#99621E")
+                .classed("line line2012 hide-line", true)
+                .attr("onmouseover", "strongLine('line2012')")
+                .attr("onmouseout", "weakLine('line2012')");
+            chartGroup
+                .data([response])
+                .append("path")
+                .attr("d", line2013)
+                .attr("stroke", "#5F758E")
+                .classed("line line2013 hide-line", true)
+                .attr("onmouseover", "strongLine('line2013')")
+                .attr("onmouseout", "weakLine('line2013')");
+            chartGroup
+                .data([response])
+                .append("path")
+                .attr("d", line2014)
+                .attr("stroke", "#E2294F")
+                .classed("line line2014 hide-line", true)
+                .attr("onmouseover", "strongLine('line2014')")
+                .attr("onmouseout", "weakLine('line2014')");
+            chartGroup
+                .data([response])
+                .append("path")
+                .attr("d", line2015)
+                .attr("stroke", "#3E78B2")
+                .classed("line line2015 hide-line", true)
+                .attr("onmouseover", "strongLine('line2015')")
+                .attr("onmouseout", "weakLine('line2015')");
+        });
+        
+        function strongLine(line) {
+            var ln = document.getElementsByClassName(line);
+            // console.log(ln[0].classList);
+            ln[0].classList.add("strong-line");
+        }
+        function weakLine(line) {
+            var ln = document.getElementsByClassName(line);
+            // console.log(ln);
+            ln[0].classList.remove("strong-line");
+        }
+
+        function drawLine(line) {
+
+            var path = document.querySelector(line);
+            var length = path.getTotalLength();
+            // Clear any previous transition
+            path.style.transition = path.style.WebkitTransition =
+                'none';
+            // Set up the starting positions
+            path.style.strokeDasharray = length + ' ' + length;
+            path.style.strokeDashoffset = length;
+            // Trigger a layout so styles are calculated & the browser
+            // picks up the starting position before animating
+            path.getBoundingClientRect();
+            // Define our transition
+            path.style.transition = path.style.WebkitTransition =
+                'stroke-dashoffset 6s ease-in-out';
+            // Go!
+            path.style.strokeDashoffset = '0';
+        }
+        function toggleLine(line) {
+            var ln = document.getElementsByClassName(line);
+            var draw_line = "." + line
+            if (ln[0].classList[2] == "hide-line") {
+                ln[0].classList.remove("hide-line");
+                drawLine(draw_line);}
+            else {
+                ln[0].classList.add("hide-line");}
+        }
+
+    </script>
+
+</body>
+</html>

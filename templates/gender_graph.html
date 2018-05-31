@@ -33,12 +33,22 @@
             var trace_m = {
                 x: years,
                 y: male,
-                name: "Male"
+                name: "Female",
+				line: {
+					color: "#5F758E",
+					width: 5,
+					shape: "spline"
+				}
             };
             var trace_f = {
                 x: years,
                 y: female,
-                name: "Female"
+                name: "Male",
+				line: {
+					color: "#B8B42D",
+					width: 5,
+					shape: "spline"
+				}
             };
 
 			var data = [trace_m,
@@ -62,28 +72,7 @@
 			Plotly.newPlot(CHART, data, layout);
 		});
 
-        // Get new data whenever the dropdown selection changes
-        function getData(year) {
-            
-			for (y in data) {
-				if (y.name == year) {
-					newdata = y.y
-				};
-			}
-
-            Plotly.restyle(CHART, 'y', newdata)
-        }
-
 	</script>
-
-	<select id="selDataset" onchange="getData(this.value)">
-		<option value="2010">2010</option>
-		<option value="2011">2011</option>
-		<option value="2012">2012</option>
-		<option value="2013">2013</option>
-		<option value="2014">2014</option>
-		<option value="2015">2015</option>
-	</select>
 
 </body>
 </html>

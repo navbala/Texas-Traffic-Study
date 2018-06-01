@@ -493,9 +493,9 @@ def crashes_race_graph():
 def bubble():
     return render_template("bubble.html")
 
-@app.route("/map")
-def map():
-    return render_template("map.html")
+@app.route("/map_chart")
+def map_chart():
+    return render_template("map_chart.html")
 
 
 if __name__ == "__main__":

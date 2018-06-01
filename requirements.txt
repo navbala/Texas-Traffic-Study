@@ -2,3 +2,4 @@ pandas==0.22.0
 numpy==1.13.3
 sqlalchemy==1.1.13
 flask==0.12.2
+gunicorn

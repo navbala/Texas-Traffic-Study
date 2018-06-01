@@ -382,6 +382,88 @@ def crashes_by_county():
     return jsonify(total_by_county)
 
 
+@app.route('/crashesPar')
+def crashesPar():
+
+    results = session.query(Crashes).order_by(func.random()).limit(200).all()
+
+    cars = []
+    map = []
+
+    for row in results:
+        crash_result = {}
+        crash_result["crash_year"] = row.crash_year
+        crash_result["speed_limit"] = row.speed_limit
+        crash_result["person_age"] = row.person_age
+        crash_result["crash_death_count"] = row.crash_death_count
+        crash_result["crash_total_injury_count"] = row.crash_total_injury_count
+        crash_result["crash_time"] = row.crash_time
+        cars.append(crash_result)
+
+    for row in results:
+        mapData = {}
+        mapData["city"] = row.city
+        mapData["county"] = row.county
+        mapData["crash_death_count"] = row.crash_death_count
+        mapData["crash_severity"] = row.crash_severity
+        mapData["crash_time"] = row.crash_time
+        mapData["crash_total_injury_count"] = row.crash_total_injury_count
+        mapData["crash_year"] = row.crash_year
+        mapData["day_of_week"] = row.day_of_week
+        mapData["latitude"] = row.latitude
+        mapData["longitude"] = row.longitude
+        mapData["manner_of_collision"] = row.manner_of_collision
+        mapData["population_group"] = row.population_group
+        mapData["road_class"] = row.road_class
+        mapData["speed_limit"] = row.speed_limit
+        mapData["weather_condition"] = row.weather_condition
+        mapData["vehicle_color"] = row.vehicle_color
+        mapData["person_age"] = row.person_age
+        mapData["person_ethnicity"] = row.person_ethnicity
+        mapData["person_gender"] = row.person_gender
+        mapData["person_type"] = row.person_type
+        map.append(mapData)
+
+    return jsonify(cars, map)
+
+@app.route('/wordList')
+def wordList():
+
+    results = session.query(County_crashes).all()
+    crashcty = []
+
+    for row in results:
+        crash_result = {}
+        crash_result["county"] = row.county
+
+        if(row.crashes_2010 == None):
+            row.crashes_2010 = 0
+
+        elif(row.crashes_2011 == None):
+            row.crashes_2011 = 0
+
+        elif(row.crashes_2012 == None):
+            row.crashes_2012 = 0
+
+        elif(row.crashes_2013 == None):
+            row.crashes_2013 = 0
+
+        elif(row.crashes_2014 == None):
+            row.crashes_2014 = 0
+
+        elif(row.crashes_2015 == None):
+            row.crashes_2015 = 0
+
+        elif(row.crashes_2016 == None):
+            row.crashes_2016 = 0
+
+        crash_result["allCrash"] = row.crashes_2010 + row.crashes_2011 + row.crashes_2012 + row.crashes_2013 + row.crashes_2014 + row.crashes_2015 + row.crashes_2016
+        crashcty.append(crash_result)
+
+    return jsonify(crashcty)
+
+
+
 @app.route("/example")
 def example():
     return render_template("flask_plotly_example.html")

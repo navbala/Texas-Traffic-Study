@@ -488,5 +488,15 @@ def crashes_gender_graph():
 def crashes_race_graph():
     return render_template("crashes_race_graph.html")
 
+
+@app.route("/bubble")
+def bubble():
+    return render_template("bubble.html")
+
+@app.route("/map")
+def map():
+    return render_template("map.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)

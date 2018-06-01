@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Word Bubble</title>
+	<!-- additional libs -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin=""/>
+
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+             integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+             crossorigin=""></script>
+
+
+    <!-- d3 JS -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    
+    <script src="https://cdn.rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+
+    <!-- Marker Cluster JS & CSS -->
+    <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+
+	<style>
+			#mapid 
+			{ 
+				height: 400px; 
+				width: 800px;    
+			}
+	
+			svg {
+			font: 10px sans-serif;
+			}
+	
+			.background path {
+			fill: none;
+			stroke: #ddd;
+			shape-rendering: crispEdges;
+			}
+	
+			.foreground path {
+			fill: none;
+			stroke: steelblue;
+			}
+	
+			.brush .extent {
+			fill-opacity: .3;
+			stroke: #fff;
+			shape-rendering: crispEdges;
+			}
+	
+			.axis line,
+			.axis path {
+			fill: none;
+			stroke: #000;
+			shape-rendering: crispEdges;
+			}
+	
+			.axis text {
+			text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+			cursor: move;
+			}
+		</style>
+
+</head>
+
+
+
+</head>
+
+<body>
+
+<script>
+        Plotly.d3.json(`/wordList`, function(error, crashcty) 
+        {
+        if (error) return console.warn(error);
+
+        var words =  crashcty;
+
+        d3.layout.cloud()
+        .size([850, 600])
+        .words(words
+            .map(function(d) {
+                return {text: d.county, size: d.allCrash / 250 };}))
+            .padding(5)
+            .rotate(function() { return ~~(Math.random() * 0) * 90; })
+            .font("Impact")
+            .fontSize(function(d) { return d.size; })
+            .on("end", draw)
+            .start();
+
+        function draw(words) {
+            d3.select("body").append("svg")
+            .attr("width", 650)
+            .attr("height", 600)
+            .append("g")
+            .attr("transform", "translate(300,300)")
+            .selectAll("text")
+            .data(words)
+            .enter().append("text")
+            .style("font-size", function(d) { return d.size + "px"; })
+            .style("font-family", "Impact")
+            // .style("fill", function(d, i) { return fill(i); })
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) { return d.text; });
+        }
+        })
+
+</script>
+
+
+</body>
+
+</html>

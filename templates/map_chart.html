@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Word Bubble</title>
+	<title>Parallel Coordinates</title>
 	<!-- additional libs -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
@@ -246,8 +246,18 @@
                 for (var i = 0; i < data.length; i++)
                 {
                     markers.addLayer(L.marker([data[i].latitude,data[i].longitude])
-                        .bindPopup(data[i].crash_year + "<hr>" + data[i].manner_of_collision ));
-
+                        .bindPopup(data[i].crash_year + "<br>" +
+                        "City: " + data[i].city + "<br>" +
+                        "County: " + data[i].county + "<br>"+
+                        "Time: " + data[i].crash_time + "<hr>" + 
+                        "Age: " + data[i].person_age + "<br>" +
+                        "Speed Limit: " + data[i].speed_limit + "<br>" +
+                        "How: " + data[i].manner_of_collision + "<br>" +
+                        "Weather: " + data[i].weather_condition + "<br>" +
+                        "Severity: " + data[i].crash_severity + "<br>" +
+                        "Injury Count: " +data[i].crash_total_injury_count +"<br>" +
+                        "Death Count: " + data[i].crash_death_count
+                        ));
                 }
                 mymap.addLayer(markers);
 

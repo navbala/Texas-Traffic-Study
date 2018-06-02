@@ -385,7 +385,7 @@ def crashes_by_county():
 @app.route('/crashesPar')
 def crashesPar():
 
-    results = session.query(Crashes).order_by(func.random()).limit(150).all()
+    results = session.query(Crashes).order_by(func.random()).limit(200).all()
 
     cars = []
     map = []
